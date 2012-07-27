@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    h1= title
+
+    div#auth-status(style="margin-top:20px")
+        div#auth-loggedout
+            a#auth-loginlink(href="#") login
+        div#auth-loggedin(style="display:none")
+            span#auth-displayname
+            a#auth-logoutlink(href="#", style="margin-left:10px") logout
+
+    button.btn.primary#btnSearch(style="margin-top:20px") Search
+
+    table.table.table-striped.table-bordered.sortable(style="margin-top:20px;")
+        thead
+            tr
+                th Name
+                th Percent Match
+                th Link
+        tbody#results

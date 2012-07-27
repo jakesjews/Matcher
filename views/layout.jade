@@ -1,0 +1,14 @@
+doctype 5
+html
+    head
+        title= title
+        link(rel='stylesheet', href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.0.4/css/bootstrap-combined.min.css')
+        != css('style')
+        != js('jquery-1.7.2.min')
+        != js('sorttable')
+        != js('matcher')
+    body
+        div#fb-root
+        div.container-fluid
+            div.row.hero-unit
+                block content
