@@ -59,7 +59,7 @@ queryFacebook = () ->
   if window.token
     uri = encodeURI("https://graph.facebook.com/fql?q=#{query}&access_token=#{window.token}")
     $.getJSON uri, (results) =>
-      $.post "http://localhost:3000/", results, fillTable
+      $.post "http://matcher.azurewebsites.net", results, fillTable
 
 fillTable = (users) ->
   $('#results').empty();
