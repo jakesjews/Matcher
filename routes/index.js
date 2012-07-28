@@ -7,8 +7,4 @@
     });
   };
 
-  exports.query = function(req, res) {
-    return res.send(req.body);
-  };
-
 }).call(this);

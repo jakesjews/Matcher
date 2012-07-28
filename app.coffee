@@ -25,7 +25,15 @@ app.configure 'development', ->
 
 app.get '/', routes.index
 
-app.post '/', routes.query
+app.post "/", (req, res) ->
+  users = filterResults(req.body)
+  res.send(filterResults(users))
 
 http.createServer(app).listen app.get('port'), ->
   console.log "Express server listening on port ${ app.get('port') "
+
+filterResults = (users) ->
+  for user in users.data
+    percent = Math.floor(Math.random() * 101)
+    user.percent = percent
+  return users
