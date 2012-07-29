@@ -50,7 +50,7 @@ window.fbAsyncInit = ->
     FB.logout()
 
 query = """
-        SELECT uid, name, interests, relationship_status, profile_url, pic_square FROM user
+        SELECT uid, name, last_name, interests, relationship_status, profile_url, pic_square FROM user
         WHERE
           uid = me()
           or
@@ -77,7 +77,7 @@ fillTable = (users) ->
       <tr>
         <td>#{user.name}</td>
         <td>#{user.percent}%</td>
-        <td>#{user.relationship_status}</td>
+        <td>#{if user.relationship_status != 'null' then user.relationship_status else "N/A"}</td>
         <td><a href='#{user.profile_url}'><img src=#{user.pic_square}/j></a></td>
       </tr>"
     """

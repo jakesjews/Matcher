@@ -38,12 +38,18 @@ http.createServer(app).listen app.get('port'), ->
 filterResults = (users, uid) ->
   me = getSelf(users, uid)
   selfInterests = getInterests(me)
-  users = _.without(users, me)
+  users = filterUnwanted(users, me)
   for user in users
     user.percent = 0
     calculateInterests(user, selfInterests)
     calculateRelationship(user)
   return _.sortBy(users, (user) -> user.percent).reverse()
+
+filterUnwanted = (users, me) ->
+  sameLastName = _.filter(users, (u) -> u.last_name.toLowerCase() == me.last_name.toLowerCase())
+  users = _.without(users, me)
+  users = _.difference(users, sameLastName)
+  return users
 
 getInterests = (u) -> u.interests.toLowerCase().replace(/\s+/g, '').split(',')
 getSelf = (users, uid) -> _.find(users, (user) -> user.uid is uid)
