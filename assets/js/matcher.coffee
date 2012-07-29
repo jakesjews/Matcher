@@ -1,5 +1,8 @@
-appId = "188082917990051"
-server = "//matcher.azurewebsites.net"
+appId = "310030915760398"
+server = "//localhost:3000"
+
+#appId = "188082917990051"
+#server = "//matcher.azurewebsites.net"
 
 # Load the SDK Asynchronously
 ((d) ->
@@ -54,7 +57,7 @@ query = """
           (
             relationship_status = 'single'
             AND
-            birthday_date > '01/01/1990'
+            birthday_date > '07/01/1994'
             AND
             sex = 'female'
             AND

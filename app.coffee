@@ -48,6 +48,5 @@ getInterests = (u) -> u.interests.replace(/\s+/g, '').split(',')
 getSelf = (users, uid) -> _.find(users, (user) -> user.uid is uid)
 
 calculateInterests = (user, selfInterests) ->
-  userInterests = getInterests(user)
-  matchCount = _.intersection(selfInterests, userInterests).length
+  matchCount = _.intersection(selfInterests, getInterests(user)).length
   user.percent += matchCount * 20 unless (user.percent + 20 > 100)

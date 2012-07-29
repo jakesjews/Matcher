@@ -74,9 +74,8 @@
   };
 
   calculateInterests = function(user, selfInterests) {
-    var matchCount, userInterests;
-    userInterests = getInterests(user);
-    matchCount = _.intersection(selfInterests, userInterests).length;
+    var matchCount;
+    matchCount = _.intersection(selfInterests, getInterests(user)).length;
     if (!(user.percent + 20 > 100)) {
       return user.percent += matchCount * 20;
     }
