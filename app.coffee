@@ -40,13 +40,18 @@ filterResults = (users, uid) ->
   selfInterests = getInterests(me)
   users = _.without(users, me)
   for user in users
-    user.percent = 20
+    user.percent = 0
     calculateInterests(user, selfInterests)
+    calculateRelationship(user)
   return _.sortBy(users, (user) -> user.percent).reverse()
 
-getInterests = (u) -> u.interests.replace(/\s+/g, '').split(',')
+getInterests = (u) -> u.interests.toLowerCase().replace(/\s+/g, '').split(',')
 getSelf = (users, uid) -> _.find(users, (user) -> user.uid is uid)
 
 calculateInterests = (user, selfInterests) ->
   matchCount = _.intersection(selfInterests, getInterests(user)).length
   user.percent += matchCount * 20 unless (user.percent + 20 > 100)
+
+calculateRelationship = (user) ->
+  isSingle = user.relationship_status.toLowerCase() is 'single'
+  user.percent += 20 if isSingle

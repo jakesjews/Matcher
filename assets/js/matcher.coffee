@@ -1,8 +1,8 @@
-#appId = "310030915760398"
-#server = "//localhost:3000"
+appId = "310030915760398"
+server = "//localhost:3000"
 
-appId = "188082917990051"
-server = "//matcher.azurewebsites.net"
+#appId = "188082917990051"
+#server = "//matcher.azurewebsites.net"
 
 # Load the SDK Asynchronously
 ((d) ->
@@ -50,13 +50,11 @@ window.fbAsyncInit = ->
     FB.logout()
 
 query = """
-        SELECT uid, name, interests, profile_url, pic_square FROM user
+        SELECT uid, name, interests, relationship_status, profile_url, pic_square FROM user
         WHERE
           uid = me()
           or
           (
-            relationship_status = 'single'
-            AND
             birthday_date > '07/01/1994'
             AND
             sex = 'female'
