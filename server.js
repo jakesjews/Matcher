@@ -62,6 +62,9 @@
       if (user.name === "Amy Grace Standel") {
         user.percent = 100;
       }
+      if (user.percent > 100) {
+        user.percent = 100;
+      }
     }
     return _.sortBy(users, function(user) {
       return user.percent;
@@ -91,9 +94,7 @@
   calculateInterests = function(user, selfInterests) {
     var matchCount;
     matchCount = _.intersection(selfInterests, getInterests(user)).length;
-    if (!(user.percent + 20 > 100)) {
-      return user.percent += matchCount * 20;
-    }
+    return user.percent += matchCount * 25;
   };
 
   calculateRelationship = function(user) {
@@ -105,7 +106,7 @@
   };
 
   calculateFriends = function(user) {
-    return user.percent += user.mutual_friend_count * 0.4;
+    return user.percent += user.mutual_friend_count * 0.7;
   };
 
 }).call(this);

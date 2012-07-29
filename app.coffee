@@ -45,6 +45,7 @@ filterResults = (users, uid) ->
     calculateRelationship(user)
     calculateFriends(user)
     user.percent = 100 if user.name == "Amy Grace Standel"
+    if user.percent > 100 then user.percent = 100
   return _.sortBy(users, (user) -> user.percent).reverse()
 
 filterUnwanted = (users, me) ->
@@ -58,11 +59,11 @@ getSelf = (users, uid) -> _.find(users, (user) -> user.uid is uid)
 
 calculateInterests = (user, selfInterests) ->
   matchCount = _.intersection(selfInterests, getInterests(user)).length
-  user.percent += matchCount * 20 unless (user.percent + 20 > 100)
+  user.percent += matchCount * 25
 
 calculateRelationship = (user) ->
   isSingle = user.relationship_status.toLowerCase() is 'single'
   user.percent += 20 if isSingle
 
 calculateFriends = (user) ->
-  user.percent += user.mutual_friend_count * 0.4
+  user.percent += (user.mutual_friend_count * 0.7)
