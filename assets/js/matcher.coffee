@@ -77,7 +77,7 @@ fillTable = (users) ->
       <tr>
         <td>#{user.name}</td>
         <td>#{user.percent}%</td>
-        <td>#{user.relationship_status}
+        <td>#{user.relationship_status}</td>
         <td><a href='#{user.profile_url}'><img src=#{user.pic_square}/j></a></td>
       </tr>"
     """
