@@ -1,5 +1,5 @@
-appId = "310030915760398"
-server = "//localhost:3000"
+appId = "188082917990051"
+server = "//matcher.azurewebsites.net"
 
 # Load the SDK Asynchronously
 ((d) ->
