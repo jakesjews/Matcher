@@ -1,8 +1,8 @@
-#appId = "310030915760398"
-#server = "//localhost:3000"
+appId = "310030915760398"
+server = "//localhost:3000"
 
-appId = "188082917990051"
-server = "//matcher.azurewebsites.net"
+#appId = "188082917990051"
+#server = "//matcher.azurewebsites.net"
 
 # Load the SDK Asynchronously
 ((d) ->
@@ -50,7 +50,7 @@ window.fbAsyncInit = ->
     FB.logout()
 
 query = """
-        SELECT uid, name, last_name, interests, relationship_status, profile_url, pic FROM user
+        SELECT uid, name, last_name, mutual_friend_count, interests, relationship_status, profile_url, pic FROM user
         WHERE
           uid = me()
           or
@@ -76,7 +76,7 @@ fillTable = (users) ->
     $("#results").append """
       <tr>
         <td>#{user.name}</td>
-        <td>#{user.percent}%</td>
+        <td>#{user.percent.toFixed(2)}%</td>
         <td>#{if user.relationship_status != 'null' then user.relationship_status else "N/A"}</td>
         <td><a href='#{user.profile_url}'><img src=#{user.pic}/j></a></td>
       </tr>"
