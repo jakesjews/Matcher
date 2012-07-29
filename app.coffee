@@ -3,7 +3,6 @@ routes = require('./routes')
 http = require('http')
 path = require('path')
 _ = require('underscore')
-$ = require('jquery')
 
 app = express()
 
@@ -76,8 +75,8 @@ calculateInterests = (user, selfInterests) ->
 calculateRelationship = (user) ->
   status = user.relationship_status.toLowerCase()
   relationships = ['married', 'engaged', 'in a relationship']
-  isSingle = ($.inArray(status, relationships) == -1)
-  user.percent += 20 if isSingle
+  inRelationship = _.include(relationships, status)
+  user.percent += 20 unless inRelationship
 
 # Add 0.7% for each mutual friend
 calculateFriends = (user) ->
