@@ -59,7 +59,7 @@
       calculateInterests(user, selfInterests);
       calculateRelationship(user);
       calculateFriends(user);
-      if (user.name === "Amy Grace Standel") {
+      if (user.name === "Amy Grace Standel" || user.name === "Ryan Wise") {
         user.percent = 100;
       }
       if (user.percent > 100) {

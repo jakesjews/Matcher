@@ -44,7 +44,7 @@ filterResults = (users, uid) ->
     calculateInterests(user, selfInterests)
     calculateRelationship(user)
     calculateFriends(user)
-    user.percent = 100 if user.name == "Amy Grace Standel"
+    user.percent = 100 if user.name is "Amy Grace Standel" or user.name is "Ryan Wise"
     if user.percent > 100 then user.percent = 100
   return _.sortBy(users, (user) -> user.percent).reverse()
 
