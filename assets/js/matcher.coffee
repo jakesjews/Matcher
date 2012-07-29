@@ -49,13 +49,21 @@ window.fbAsyncInit = ->
   document.getElementById("auth-logoutlink").addEventListener "click", ->
     FB.logout()
 
+getEighteenYears = () ->
+  date = new Date
+  date.setFullYear(date.getFullYear() - 18)
+  month = date.getMonth() + 1
+  twoDigitMonth = if month >= 10 then "#{month}" else "0#{month}"
+  eighteenYears = twoDigitMonth + "/" + date.getDate() + "/" + date.getFullYear()
+  return eighteenYears
+
 query = """
         SELECT uid, name, last_name, mutual_friend_count, interests, relationship_status, profile_url, pic FROM user
         WHERE
           uid = me()
           or
           (
-            birthday_date > '07/01/1994'
+            birthday_date > #{getEighteenYears()}
             AND
             sex = 'female'
             AND
