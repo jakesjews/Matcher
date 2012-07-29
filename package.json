@@ -10,7 +10,8 @@
     "jade": "*",
     "stylus": "*",
     "coffee-script": "*",
-    "connect-assets": "*"
+    "connect-assets": "*",
+    "underscore": "*"
   },
   "engines": {
     "node": "0.8.x",
