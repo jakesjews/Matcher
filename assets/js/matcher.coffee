@@ -1,3 +1,6 @@
+appId = "310030915760398"
+server = "//localhost:3000"
+
 # Load the SDK Asynchronously
 ((d) ->
   id = "facebook-jssdk"
@@ -11,8 +14,8 @@
 ) document
 window.fbAsyncInit = ->
   FB.init
-    appId: "188082917990051" # App ID
-    channelUrl: "//localhost:3000/channel.html" # Channel File
+    appId: "#{appId}" # App ID
+    channelUrl: "#{server}/channel.html" # Channel File
     status: true # check login status
     cookie: true # enable cookies to allow the server to access the session
     xfbml: true # parse XFBML
@@ -23,6 +26,7 @@ window.fbAsyncInit = ->
       FB.api "/me", (me) ->
         document.getElementById("auth-displayname").innerHTML = me.name if me.name
         window.token = response.authResponse.accessToken
+        window.uid = me.id
         queryFacebook()
 
         document.getElementById("auth-loggedout").style.display = "none"
@@ -37,33 +41,37 @@ window.fbAsyncInit = ->
 
   # respond to clicks on the login and logout links
   document.getElementById("auth-loginlink").addEventListener "click", ->
-    FB.login(loggedIn, scope: 'friends_relationships, friends_birthday')
+    FB.login(loggedIn, scope: 'friends_relationships, friends_birthday, user_interests, friends_interests')
 
   document.getElementById("auth-logoutlink").addEventListener "click", ->
     FB.logout()
 
 query = """
-        SELECT name, profile_url, pic_square FROM user
+        SELECT uid, name, interests, profile_url, pic_square FROM user
         WHERE
-          relationship_status = 'single'
-          AND
-          birthday_date > '01/01/1990'
-          AND
-          sex = 'female'
-          AND
-          uid IN (SELECT uid2 FROM friend WHERE uid1 = me())
+          uid = me()
+          or
+          (
+            relationship_status = 'single'
+            AND
+            birthday_date > '01/01/1990'
+            AND
+            sex = 'female'
+            AND
+            uid IN (SELECT uid2 FROM friend WHERE uid1 = me())
+          )
         """
 
 queryFacebook = () ->
   # Only run if there is a stored authentication token
-  if window.token
+  if window.token && window.uid
     uri = encodeURI("https://graph.facebook.com/fql?q=#{query}&access_token=#{window.token}")
     $.getJSON uri, (results) =>
-      $.post "http://matcher.azurewebsites.net", results, fillTable
+      $.post "#{server}/user/#{window.uid}", results, fillTable
 
 fillTable = (users) ->
   $('#results').empty();
-  for user in users.data
+  for user in users
     $("#results").append """
       <tr>
         <td>#{user.name}</td>

@@ -2,6 +2,7 @@ express = require('express')
 routes = require('./routes')
 http = require('http')
 path = require('path')
+_ = require('underscore')
 
 app = express()
 
@@ -25,15 +26,28 @@ app.configure 'development', ->
 
 app.get '/', routes.index
 
-app.post "/", (req, res) ->
-  users = filterResults(req.body)
-  res.send(filterResults(users))
+app.post "/user/:uid", (req, res) ->
+  uid = req.param("uid")
+  users = req.body.data
+  users = filterResults(users, uid)
+  res.send(users)
 
 http.createServer(app).listen app.get('port'), ->
   console.log "Express server listening on port ${ app.get('port') "
 
-filterResults = (users) ->
-  for user in users.data
-    percent = Math.floor(Math.random() * 101)
-    user.percent = percent
-  return users
+filterResults = (users, uid) ->
+  me = getSelf(users, uid)
+  selfInterests = getInterests(me)
+  users = _.without(users, me)
+  for user in users
+    user.percent = 20
+    calculateInterests(user, selfInterests)
+  return _.sortBy(users, (user) -> user.percent).reverse()
+
+getInterests = (u) -> u.interests.replace(/\s+/g, '').split(',')
+getSelf = (users, uid) -> _.find(users, (user) -> user.uid is uid)
+
+calculateInterests = (user, selfInterests) ->
+  userInterests = getInterests(user)
+  matchCount = _.intersection(selfInterests, userInterests).length
+  user.percent += matchCount * 20 unless (user.percent + 20 > 100)
