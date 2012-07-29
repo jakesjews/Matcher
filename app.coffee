@@ -48,22 +48,34 @@ filterResults = (users, uid) ->
     if user.percent > 100 then user.percent = 100
   return _.sortBy(users, (user) -> user.percent).reverse()
 
-filterUnwanted = (users, me) ->
-  sameLastName = _.filter(users, (u) -> u.last_name.toLowerCase() == me.last_name.toLowerCase())
-  users = _.without(users, me)
-  users = _.difference(users, sameLastName)
-  return users
-
+# Splits a users interests from a comma separated string into an array
 getInterests = (u) -> u.interests.toLowerCase().replace(/\s+/g, '').split(',')
+
+# Returns the user matching the requestors uid
 getSelf = (users, uid) -> _.find(users, (user) -> user.uid is uid)
 
+filterUnwanted = (users, me) ->
+  # Remove the requestors profile from the list
+  users = _.without(users, me)
+
+  # Get a list of all users with the same last name as the
+  # requestor and remove them from the list
+  sameLastName = _.filter(users, (u) ->
+    u.last_name.toLowerCase() == me.last_name.toLowerCase())
+  users = _.difference(users, sameLastName)
+
+  return users
+
+# For every interest that is also an interest of the requestor add 25%
 calculateInterests = (user, selfInterests) ->
   matchCount = _.intersection(selfInterests, getInterests(user)).length
   user.percent += matchCount * 25
 
+# Add 20% if the user is single
 calculateRelationship = (user) ->
   isSingle = user.relationship_status.toLowerCase() is 'single'
   user.percent += 20 if isSingle
 
+# Add 0.7% for each mutual friend
 calculateFriends = (user) ->
   user.percent += (user.mutual_friend_count * 0.7)

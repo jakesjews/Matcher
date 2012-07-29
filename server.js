@@ -71,16 +71,6 @@
     }).reverse();
   };
 
-  filterUnwanted = function(users, me) {
-    var sameLastName;
-    sameLastName = _.filter(users, function(u) {
-      return u.last_name.toLowerCase() === me.last_name.toLowerCase();
-    });
-    users = _.without(users, me);
-    users = _.difference(users, sameLastName);
-    return users;
-  };
-
   getInterests = function(u) {
     return u.interests.toLowerCase().replace(/\s+/g, '').split(',');
   };
@@ -89,6 +79,16 @@
     return _.find(users, function(user) {
       return user.uid === uid;
     });
+  };
+
+  filterUnwanted = function(users, me) {
+    var sameLastName;
+    users = _.without(users, me);
+    sameLastName = _.filter(users, function(u) {
+      return u.last_name.toLowerCase() === me.last_name.toLowerCase();
+    });
+    users = _.difference(users, sameLastName);
+    return users;
   };
 
   calculateInterests = function(user, selfInterests) {

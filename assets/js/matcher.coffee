@@ -1,5 +1,5 @@
 #appId = "310030915760398"
-#server = "//localhost:3000"
+#gserver = "//localhost:3000"
 
 appId = "188082917990051"
 server = "//matcher.azurewebsites.net"
@@ -30,6 +30,7 @@ window.fbAsyncInit = ->
         document.getElementById("auth-displayname").innerHTML = me.name if me.name
         window.token = response.authResponse.accessToken
         window.uid = me.id
+        window.sex = me.sex
         queryFacebook()
 
         document.getElementById("auth-loggedout").style.display = "none"
@@ -49,6 +50,14 @@ window.fbAsyncInit = ->
   document.getElementById("auth-logoutlink").addEventListener "click", ->
     FB.logout()
 
+$ ->
+  $("#btnSearch").click -> queryFacebook()
+  $('.nav-tabs').button()
+
+getSex = () ->
+  selected = $("#gender .active")
+  selected.html().toLowerCase()
+
 getEighteenYears = () ->
   date = new Date
   date.setFullYear(date.getFullYear() - 18)
@@ -57,15 +66,15 @@ getEighteenYears = () ->
   eighteenYears = twoDigitMonth + "/" + date.getDate() + "/" + date.getFullYear()
   return eighteenYears
 
-query = """
+query = () -> """
         SELECT uid, name, last_name, mutual_friend_count, interests, relationship_status, profile_url, pic FROM user
         WHERE
           uid = me()
           or
           (
-            birthday_date > #{getEighteenYears()}
+            birthday_date > '#{getEighteenYears()}'
             AND
-            sex = 'female'
+            sex = '#{getSex()}'
             AND
             uid IN (SELECT uid2 FROM friend WHERE uid1 = me())
           )
@@ -74,7 +83,7 @@ query = """
 queryFacebook = () ->
   # Only run if there is a stored authentication token
   if window.token && window.uid
-    uri = encodeURI("https://graph.facebook.com/fql?q=#{query}&access_token=#{window.token}")
+    uri = encodeURI("https://graph.facebook.com/fql?q=#{query()}&access_token=#{window.token}")
     $.getJSON uri, (results) =>
       $.post "#{server}/user/#{window.uid}", results, fillTable
 
@@ -89,6 +98,3 @@ fillTable = (users) ->
         <td><a href='#{user.profile_url}'><img src=#{user.pic}/j></a></td>
       </tr>"
     """
-
-$ ->
-  $("#btnSearch").click -> queryFacebook()
