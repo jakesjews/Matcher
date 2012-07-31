@@ -78,6 +78,7 @@ query = () -> """
             AND
             uid IN (SELECT uid2 FROM friend WHERE uid1 = me())
           )
+        LIMIT 100
         """
 
 queryFacebook = () ->
