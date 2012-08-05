@@ -25,6 +25,7 @@ app.configure 'development', ->
   app.use express.errorHandler()
 
 app.get '/', routes.index
+app.post '/', routes.index
 
 app.post "/user/:uid", (req, res) ->
   uid = req.param("uid")
