@@ -3,24 +3,20 @@ extends layout
 block content
     h1= title
 
-    div#auth-status(style="margin-top:20px")
-        div#auth-loggedout
-            a#auth-loginlink(href="#") login
-        div#auth-loggedin(style="display:none")
-            span#auth-displayname
-            a#auth-logoutlink(href="#", style="margin-left:10px") logout
+    div.padded
+        div.fb-login-button(data-show-faces="true", scope="friends_relationships, friends_birthday, user_interests, friends_interests") Login with Facebook
 
-    div#gender.btn-group(data-toggle="buttons-radio", style="margin-top:20px")
-        button.btn.active Female
-        button.btn Male
+        div#gender.btn-group(data-toggle="buttons-radio")
+            button.btn.active Female
+            button.btn Male
 
-    button.btn.primary#btnSearch(style="margin-top:20px") Search
+        button.btn.primary#btnSearch() Search
 
-    table.table.table-striped.table-bordered.sortable(style="margin-top:20px;")
-        thead
-            tr
-                th Name
-                th Percent Match
-                th Relationship Status
-                th Link
-        tbody#results
+        table.table.table-striped.table-bordered.sortable()
+            thead
+                tr
+                    th Name
+                    th Percent Match
+                    th Relationship Status
+                    th Link
+            tbody#results

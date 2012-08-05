@@ -1,8 +1,8 @@
-#appId = "310030915760398"
-#cserver = "//localhost:3000"
+appId = "310030915760398"
+server = "//localhost:3000"
 
-appId = "188082917990051"
-server = "//matcher.azurewebsites.net"
+#appId = "188082917990051"
+#server = "//matcher.azurewebsites.net"
 
 # Load the SDK Asynchronously
 ((d) ->
@@ -27,28 +27,13 @@ window.fbAsyncInit = ->
     if response.authResponse
       # user has auth'd your app and is logged into Facebook
       FB.api "/me", (me) ->
-        document.getElementById("auth-displayname").innerHTML = me.name if me.name
         window.token = response.authResponse.accessToken
         window.uid = me.id
         window.sex = me.sex
         queryFacebook()
 
-        document.getElementById("auth-loggedout").style.display = "none"
-        document.getElementById("auth-loggedin").style.display = "block"
-    else
-      # user has not auth'd your app, or is not logged into Facebook
-      document.getElementById("auth-loggedout").style.display = "block"
-      document.getElementById("auth-loggedin").style.display = "none"
-
   # listen for and handle auth.statusChange events
   FB.Event.subscribe "auth.statusChange", loggedIn
-
-  # respond to clicks on the login and logout links
-  document.getElementById("auth-loginlink").addEventListener "click", ->
-    FB.login(loggedIn, scope: 'friends_relationships, friends_birthday, user_interests, friends_interests')
-
-  document.getElementById("auth-logoutlink").addEventListener "click", ->
-    FB.logout()
 
 $ ->
   $("#btnSearch").click -> queryFacebook()
