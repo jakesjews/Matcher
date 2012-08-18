@@ -45,6 +45,7 @@ filterResults = (users, uid) ->
     calculateInterests(user, selfInterests)
     calculateRelationship(user)
     calculateFriends(user)
+    calculateAge(user, me.birth_date)
     user.percent = 100 if user.name is "Amy Grace Standel" or user.name is "Ryan Wise"
     if user.percent > 100 then user.percent = 100
   return _.sortBy(users, (user) -> user.percent).reverse()
@@ -86,3 +87,8 @@ calculateRelationship = (user) ->
 # Add 0.7% for each mutual friend
 calculateFriends = (user) ->
   user.percent += (user.mutual_friend_count * 0.7)
+
+calculateAge = (user, birth_date) ->
+  my_year = birth_date.getFullYear()
+  user_year = user.birth_date.getFullYear()
+  user.percent -= (my_year - user_year).abs()
