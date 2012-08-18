@@ -47,6 +47,7 @@ filterResults = (users, uid) ->
     calculateFriends(user)
     user.percent = 100 if user.name is "Amy Grace Standel" or user.name is "Ryan Wise"
     if user.percent > 100 then user.percent = 100
+    if user.percent < 0 then user.percent = 0
   return _.sortBy(users, (user) -> user.percent).reverse()
 
 # Splits a users interests from a comma separated string into an array
@@ -77,11 +78,11 @@ calculateRelationship = (user) ->
   status = user.relationship_status.toLowerCase()
   relationships = ['married', 'engaged', 'in a relationship']
   inRelationship = _.include(relationships, status)
-  
+
   if inRelationship
-    user.percent -= 20
+    user.percent -= 10
   else
-    user.percent += 20
+    user.percent += 10
 
 # Add 0.7% for each mutual friend
 calculateFriends = (user) ->

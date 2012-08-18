@@ -67,6 +67,9 @@
       if (user.percent > 100) {
         user.percent = 100;
       }
+      if (user.percent < 0) {
+        user.percent = 0;
+      }
     }
     return _.sortBy(users, function(user) {
       return user.percent;
@@ -105,9 +108,9 @@
     relationships = ['married', 'engaged', 'in a relationship'];
     inRelationship = _.include(relationships, status);
     if (inRelationship) {
-      return user.percent -= 20;
+      return user.percent -= 10;
     } else {
-      return user.percent += 20;
+      return user.percent += 10;
     }
   };
 
