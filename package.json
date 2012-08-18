@@ -12,6 +12,7 @@
     "coffee-script": "*",
     "connect-assets": "*",
     "underscore": "*",
+    "cluster": "*"
   },
   "engines": {
     "node": "0.8.x",
