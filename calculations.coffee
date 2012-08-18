@@ -45,9 +45,9 @@ calculateRelationship = (user) ->
   inRelationship = _.include(relationships, status)
 
   if inRelationship
-    user.percent -= 10
+    user.percent -= 15
   else
-    user.percent += 10
+    user.percent += 15
 
 # Add 0.7% for each mutual friend
 calculateFriends = (user) ->

@@ -65,9 +65,9 @@
     relationships = ['married', 'engaged', 'in a relationship'];
     inRelationship = _.include(relationships, status);
     if (inRelationship) {
-      return user.percent -= 10;
+      return user.percent -= 15;
     } else {
-      return user.percent += 10;
+      return user.percent += 15;
     }
   };
 
