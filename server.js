@@ -42,7 +42,7 @@
     var uid, users;
     uid = req.param("uid");
     users = req.body.data;
-    users = require('calculate').filterResults(users, uid);
+    users = require('./calculate').filterResults(users, uid);
     return res.send(users);
   });
 
