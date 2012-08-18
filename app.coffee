@@ -77,7 +77,11 @@ calculateRelationship = (user) ->
   status = user.relationship_status.toLowerCase()
   relationships = ['married', 'engaged', 'in a relationship']
   inRelationship = _.include(relationships, status)
-  user.percent += 20 unless inRelationship
+  
+  if inRelationship
+    user.percent -= 20
+  else
+    user.percent += 20
 
 # Add 0.7% for each mutual friend
 calculateFriends = (user) ->

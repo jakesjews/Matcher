@@ -104,7 +104,9 @@
     status = user.relationship_status.toLowerCase();
     relationships = ['married', 'engaged', 'in a relationship'];
     inRelationship = _.include(relationships, status);
-    if (!inRelationship) {
+    if (inRelationship) {
+      return user.percent -= 20;
+    } else {
       return user.percent += 20;
     }
   };
