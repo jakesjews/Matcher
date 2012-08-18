@@ -11,7 +11,7 @@
     "stylus": "*",
     "coffee-script": "*",
     "connect-assets": "*",
-    "underscore": "*"
+    "underscore": "*",
   },
   "engines": {
     "node": "0.8.x",
