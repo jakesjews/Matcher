@@ -52,9 +52,7 @@ getEighteenYears = () ->
   return eighteenYears
 
 query = () -> """
-        SELECT uid, name, last_name, mutual_friend_count,
-               interests, relationship_status, profile_url,
-               birthday_date, pic FROM user
+        SELECT uid, name, last_name, mutual_friend_count, interests, relationship_status, profile_url, pic FROM user
         WHERE
           uid = me()
           or
