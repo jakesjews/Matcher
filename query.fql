@@ -1,0 +1,20 @@
+#SEX
+SELECT sex FROM user WHERE uid = me()
+
+#Friends
+SELECT uid2 FROM friend WHERE uid1 = me()
+
+#QUERY1
+SELECT uid FROM user
+WHERE
+	relationship_status = 'single'
+	AND
+	birthday_date > '01/01/1990'
+	AND
+	sex = 'female'
+	AND
+	uid IN (SELECT uid2 FROM #friends)
+
+
+# Lowest ranked
+SELECT name, profile_url FROM user WHERE uid IN (SELECT uid FROM #query1)
