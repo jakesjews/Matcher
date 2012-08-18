@@ -30,7 +30,7 @@ app.post '/', routes.index
 app.post "/user/:uid", (req, res) ->
   uid = req.param("uid")
   users = req.body.data
-  users = require('./calculate').filterResults(users, uid)
+  users = require('calculate').filterResults(users, uid)
   res.send(users)
 
 http.createServer(app).listen app.get('port'), ->
