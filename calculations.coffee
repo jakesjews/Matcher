@@ -10,7 +10,6 @@ exports.filterResults = (users, uid) ->
     calculateRelationship(user)
     calculateFriends(user)
     calculateAge(user, me.birthday_date) if me.birthday_date? and user.birthday_date?
-    user.percent = 100 if user.name is "Amy Grace Standel" or user.name is "Ryan Wise"
     if user.percent > 100 then user.percent = 100
     if user.percent < 0 then user.percent = 0
   return _.sortBy(users, (user) -> user.percent).reverse()
