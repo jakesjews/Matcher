@@ -50,7 +50,7 @@ calculateRelationship = (user) ->
 
 # Add 0.7% for each mutual friend
 calculateFriends = (user) ->
-  user.percent += (user.mutual_friend_count * 0.7)
+  user.percent += (user.mutual_friend_count * 0.5)
 
 calculateAge = (user, myAge) ->
   myYear = myAge.getFullYear()
