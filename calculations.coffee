@@ -9,6 +9,7 @@ exports.filterResults = (users, uid) ->
     calculateInterests(user, selfInterests)
     calculateRelationship(user)
     calculateFriends(user)
+    console.log me
     calculateAge(user, me.birthday_date) if me.birthday_date? and user.birthday_date?
     if user.percent > 100 then user.percent = 100
     if user.percent < 0 then user.percent = 0
@@ -53,6 +54,7 @@ calculateFriends = (user) ->
   user.percent += (user.mutual_friend_count * 0.5)
 
 calculateAge = (user, myAge) ->
-  myYear = myAge.getFullYear()
-  userYear = user.birthday_date.getFullYear()
-  user.percent -= (myYear - userYear).abs()
+  if myAge.getFullYear?
+    myYear = myAge.getFullYear()
+    userYear = user.birthday_date.getFullYear()
+    user.percent -= (myYear - userYear).abs()

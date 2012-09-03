@@ -15,6 +15,7 @@
       calculateInterests(user, selfInterests);
       calculateRelationship(user);
       calculateFriends(user);
+      console.log(me);
       if ((me.birthday_date != null) && (user.birthday_date != null)) {
         calculateAge(user, me.birthday_date);
       }
@@ -74,9 +75,11 @@
 
   calculateAge = function(user, myAge) {
     var myYear, userYear;
-    myYear = myAge.getFullYear();
-    userYear = user.birthday_date.getFullYear();
-    return user.percent -= (myYear - userYear).abs();
+    if (myAge.getFullYear != null) {
+      myYear = myAge.getFullYear();
+      userYear = user.birthday_date.getFullYear();
+      return user.percent -= (myYear - userYear).abs();
+    }
   };
 
 }).call(this);
