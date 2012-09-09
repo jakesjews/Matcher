@@ -71,8 +71,8 @@ queryFacebook = () ->
   # Only run if there is a stored authentication token
   if window.token && window.uid
     uri = encodeURI("https://graph.facebook.com/fql?q=#{query()}&access_token=#{window.token}")
-    $.getJSON uri, (results) =>
-      $.post "#{server}/user/#{window.uid}", results, fillTable
+    await $.getJSON uri, defer results
+    $.post "#{server}/user/#{window.uid}", results, fillTable
 
 fillTable = (users) ->
   $('#results').empty();
