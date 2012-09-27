@@ -43,14 +43,6 @@ getSex = () ->
   selected = $("#gender .active")
   selected.html().toLowerCase()
 
-getEighteenYears = () ->
-  date = new Date
-  date.setFullYear(date.getFullYear() - 18)
-  month = date.getMonth() + 1
-  twoDigitMonth = if month >= 10 then "#{month}" else "0#{month}"
-  eighteenYears = twoDigitMonth + "/" + date.getDate() + "/" + date.getFullYear()
-  return eighteenYears
-
 query = () -> """
         SELECT uid, name, last_name, mutual_friend_count, interests,
           relationship_status, profile_url, pic, birthday_date FROM user
@@ -58,8 +50,6 @@ query = () -> """
           uid = me()
           or
           (
-            birthday_date > '#{getEighteenYears()}'
-            AND
             sex = '#{getSex()}'
             AND
             uid IN (SELECT uid2 FROM friend WHERE uid1 = me())
