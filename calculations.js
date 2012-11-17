@@ -70,7 +70,7 @@
   };
 
   calculateFriends = function(user) {
-    return user.percent += user.mutual_friend_count * 0.2;
+    return user.percent += user.mutual_friend_count * 0.1;
   };
 
   calculateAge = function(user, myAge) {
