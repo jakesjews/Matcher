@@ -4,5 +4,8 @@ body {
   
 .padded div, button, table {
 	margin-top: 20px;
+}
+
+.padded div, button {
 	display: block;
 }
