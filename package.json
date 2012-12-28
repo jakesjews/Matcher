@@ -10,7 +10,8 @@
     "jade": "0.27.7",
     "coffee-script": "1.4.0",
     "connect-assets": "2.3.3",
-    "underscore": "1.4.3"
+    "underscore": "1.4.3",
+    "stylus": "0.31.0"
   },
   "engines": {
     "node": "0.8.x",
