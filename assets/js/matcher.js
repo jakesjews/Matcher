@@ -76,7 +76,7 @@
     _results = [];
     for (_i = 0, _len = users.length; _i < _len; _i++) {
       user = users[_i];
-      _results.push($("#results").append("<tr>\n  <td>" + user.name + "</td>\n  <td>" + (user.percent.toFixed(2)) + "%</td>\n  <td>" + (user.relationship_status !== 'null' ? user.relationship_status : "N/A") + "</td>\n  <td><a href='" + user.profile_url + "'><img src=" + user.pic + "/j></a></td>\n</tr>\""));
+      _results.push($("#results").append("<tr>\n  <td>" + user.name + "</td>\n  <td>" + (user.percent.toFixed(2)) + "%</td>\n  <td>" + (user.relationship_status !== 'null' ? user.relationship_status : "N/A") + "</td>\n  <td><a href='" + user.profile_url + "'><img src=" + user.pic + "></a></td>\n</tr>\""));
     }
     return _results;
   };

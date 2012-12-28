@@ -72,6 +72,6 @@ fillTable = (users) ->
         <td>#{user.name}</td>
         <td>#{user.percent.toFixed(2)}%</td>
         <td>#{if user.relationship_status != 'null' then user.relationship_status else "N/A"}</td>
-        <td><a href='#{user.profile_url}'><img src=#{user.pic}/j></a></td>
+        <td><a href='#{user.profile_url}'><img src=#{user.pic}></a></td>
       </tr>"
     """
