@@ -6,15 +6,15 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "3.0.x",
-    "jade": "0.27.x",
+    "express": "3.1.x",
+    "jade": "0.28.x",
     "coffee-script": "1.4.x",
     "connect-assets": "2.3.x",
     "underscore": "1.4.x",
-    "stylus": "0.31.x"
+    "stylus": "0.32.x"
   },
   "engines": {
     "node": "0.8.x",
-    "npm": "1.1.x"
+    "npm": "1.2.x"
   }
 }
