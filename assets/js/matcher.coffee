@@ -2,7 +2,7 @@
 # server = "//localhost:3000"
 
 appId = "188082917990051"
-server = "//facebookmatcher.herokuapp.com"
+server = "//matcher.azurewebsites.net"
 
 # Load the SDK Asynchronously
 ((d) ->
