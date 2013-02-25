@@ -1,8 +1,8 @@
-appId = "310030915760398"
-server = "//localhost:3000"
+# appId = "310030915760398"
+# server = "//localhost:3000"
 
-# appId = "188082917990051"
-# server = "//facebookmatcher.herokuapp.com"
+appId = "188082917990051"
+server = "//facebookmatcher.herokuapp.com"
 
 # Load the SDK Asynchronously
 ((d) ->
