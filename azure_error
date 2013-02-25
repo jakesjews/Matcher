@@ -1,0 +1,29 @@
+Sun Feb 24 2013 21:08:47 GMT-0500 (EST):
+{ [Error: Unable to locate site named matcher.azurewebsites.net]
+  stack: [Getter/Setter],
+  __frame: 
+   { name: 'lookupSiteNameAndWebSpace',
+     line: 576,
+     file: '/usr/local/share/npm/lib/node_modules/azure-cli/lib/commands/site._js',
+     prev: 
+      { name: 'ensureRepositoryUri',
+        line: 650,
+        file: '/usr/local/share/npm/lib/node_modules/azure-cli/lib/commands/site._js',
+        prev: [Object],
+        active: false,
+        offset: 1,
+        col: 19 },
+     active: false,
+     offset: 7,
+     col: 4 },
+  rawStack: [Getter] }
+Error: Unable to locate site named matcher.azurewebsites.net
+    at ___ (/usr/local/share/npm/lib/node_modules/azure-cli/lib/commands/site._js:572:20)
+    at ___ (/usr/local/share/npm/lib/node_modules/azure-cli/node_modules/streamline/lib/callbacks/runtime.js:85:13)
+    at ___ (/usr/local/share/npm/lib/node_modules/azure-cli/lib/commands/site._js:980:131)
+    at __tryCatch (/usr/local/share/npm/lib/node_modules/azure-cli/node_modules/streamline/lib/callbacks/runtime.js:141:4)
+    at ___ (/usr/local/share/npm/lib/node_modules/azure-cli/lib/commands/site._js:980:67)
+    at site_doSitesGet__16 (/usr/local/share/npm/lib/node_modules/azure-cli/lib/commands/site._js:980:33)
+    at lookupSiteNameAndWebSpace (/usr/local/share/npm/lib/node_modules/azure-cli/lib/commands/site._js:583:4)
+    at ensureRepositoryUri (/usr/local/share/npm/lib/node_modules/azure-cli/lib/commands/site._js:651:19)
+    at __1 (/usr/local/share/npm/lib/node_modules/azure-cli/lib/commands/deployment._js:78:26)
