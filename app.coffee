@@ -2,11 +2,14 @@ express = require('express')
 routes = require('./routes')
 http = require('http')
 path = require('path')
+calculations = require('./calculations')
 
 app = express()
 
+port = process.env.PORT || 3000
+
 app.configure = ->
-  app.set('port', process.env.PORT || 3000)
+  app.set('port', port)
   app.set('views', __dirname + '/views')
   app.set('view engine', 'jade')
   app.use require('connect-assets')()
@@ -29,8 +32,7 @@ app.post '/', routes.index
 app.post "/user/:uid", (req, res) ->
   uid = req.param("uid")
   users = req.body.data
-  users = require('./calculations').filterResults(users, uid)
+  await calculations.filterResults(users, uid, defer(err, users))
   res.send(users)
 
-http.createServer(app).listen app.get('port'), ->
-  console.log "Express server listening on port ${ app.get('port') "
+exports.application = http.createServer(app)

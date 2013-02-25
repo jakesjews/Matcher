@@ -8,7 +8,7 @@
   "dependencies": {
     "express": "3.1.x",
     "jade": "0.28.x",
-    "coffee-script": "1.4.x",
+    "iced-coffee-script": "1.4.x",
     "connect-assets": "2.3.x",
     "underscore": "1.4.x",
     "stylus": "0.32.x"
