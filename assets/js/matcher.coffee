@@ -1,8 +1,8 @@
-# appId = "310030915760398"
-# server = "//localhost:3000"
+appId = "310030915760398"
+server = "//localhost:3000"
 
-appId = "188082917990051"
-server = "//facebookmatcher.herokuapp.com"
+# appId = "188082917990051"
+# server = "//facebookmatcher.herokuapp.com"
 
 # Load the SDK Asynchronously
 ((d) ->
@@ -34,7 +34,19 @@ window.fbAsyncInit = ->
     window.sex = me.sex
     await queryFacebook defer()
 
-$ ->
+User = (user) ->
+  this.name = user.name
+  this.percent = user.percent.toFixed(2)
+  this.relationship_status = if user.name == 'null' then 'N/A' else user.relationship_status
+  this.profile_url = user.profile_url
+  this.pic = user.pic
+
+viewModel =
+  gender: ko.observable('male')
+  users: ko.observableArray()
+
+$ =>
+  ko.applyBindings(viewModel)
   $("#btnSearch").click ->
     await queryFacebook defer()
   $('.nav-tabs').button()
@@ -66,13 +78,6 @@ queryFacebook = (callback) ->
     fillTable(results, callback)
 
 fillTable = (users, autocb) ->
-  $('#results').empty();
+  viewModel.users.removeAll()
   for user in users then do (user) ->
-    $("#results").append """
-      <tr>
-        <td>#{user.name}</td>
-        <td>#{user.percent.toFixed(2)}%</td>
-        <td>#{if user.relationship_status != 'null' then user.relationship_status else "N/A"}</td>
-        <td><a href='#{user.profile_url}'><img src=#{user.pic}></a></td>
-      </tr>"
-    """
+    viewModel.users.push(new User(user))

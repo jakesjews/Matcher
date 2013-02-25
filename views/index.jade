@@ -1,22 +1,30 @@
 extends layout
 
 block content
-    h1= title
+  h1= title
 
-    div.padded
-        div.fb-login-button(data-show-faces="true", scope="friends_relationships, friends_birthday, user_interests, friends_interests") Login with Facebook
+  div.padded
+    div.fb-login-button(data-show-faces="true", scope="friends_relationships, friends_birthday, user_interests, friends_interests") Login with Facebook
 
-        div#gender.btn-group(data-toggle="buttons-radio")
-            button.btn.active Female
-            button.btn Male
-        
-        button.btn.primary#btnSearch() Search
+    div#gender.btn-group(data-toggle="buttons-radio")
+      button.btn.active Female
+      button.btn Male
 
-        table.table.table-striped.table-bordered.sortable()
-            thead
-                tr
-                    th Name
-                    th Percent Match
-                    th Relationship Status
-                    th Link
-            tbody#results
+    button.btn.primary#btnSearch() Search
+
+    table.table.table-striped.table-bordered.sortable()
+      thead
+        tr
+          th Name
+          th Percent Match
+          th Relationship Status
+          th Link
+      tbody(data-bind="foreach: users")
+        tr
+          td(data-bind="text: name")
+          td(data-bind="text: percent")
+          td(data-bind="text: relationship_status")
+          td
+            a(data-bind="attr: { href: profile_url }")
+              img(data-bind="attr: { src: pic }")
+
