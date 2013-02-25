@@ -11,7 +11,10 @@
     "iced-coffee-script": "1.4.x",
     "connect-assets": "2.3.x",
     "underscore": "1.4.x",
-    "stylus": "0.32.x"
+    "stylus": "0.32.x",
+    "nodetime": "0.8.x",
+    "timekit": "0.1.x",
+    "v8tools": "0.2.x"
   },
   "engines": {
     "node": "0.8.x",
