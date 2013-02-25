@@ -23,27 +23,27 @@ window.fbAsyncInit = ->
     cookie: true # enable cookies to allow the server to access the session
     xfbml: true # parse XFBML
 
-  loggedIn = (response) ->
-    if response.authResponse
-      # user has auth'd your app and is logged into Facebook
-      FB.api "/me", (me) ->
-        window.token = response.authResponse.accessToken
-        window.uid = me.id
-        window.sex = me.sex
-        queryFacebook()
-
   # listen for and handle auth.statusChange events
-  FB.Event.subscribe "auth.statusChange", loggedIn
+  await FB.Event.subscribe "auth.statusChange", defer(response)
+
+  if response.authResponse
+    # user has auth'd your app and is logged into Facebook
+    await FB.api "/me", defer(me)
+    window.token = response.authResponse.accessToken
+    window.uid = me.id
+    window.sex = me.sex
+    await queryFacebook defer()
 
 $ ->
-  $("#btnSearch").click -> queryFacebook()
+  $("#btnSearch").click ->
+    await queryFacebook defer()
   $('.nav-tabs').button()
 
 getSex = () ->
   selected = $("#gender .active")
   selected.html().toLowerCase()
 
-query = () -> """
+getQuery = () -> """
         SELECT uid, name, last_name, mutual_friend_count, interests,
           relationship_status, profile_url, pic, birthday_date FROM user
         WHERE
@@ -57,16 +57,17 @@ query = () -> """
         LIMIT 100
         """
 
-queryFacebook = () ->
+queryFacebook = (callback) ->
   # Only run if there is a stored authentication token
   if window.token && window.uid
-    uri = encodeURI("https://graph.facebook.com/fql?q=#{query()}&access_token=#{window.token}")
-    $.getJSON uri, (results) =>
-      $.post "#{server}/user/#{window.uid}", results, fillTable
+    uri = encodeURI("https://graph.facebook.com/fql?q=#{getQuery()}&access_token=#{window.token}")
+    await $.getJSON uri, defer(results)
+    await $.post "#{server}/user/#{window.uid}", results, defer(results)
+    fillTable(results, callback)
 
-fillTable = (users) ->
+fillTable = (users, autocb) ->
   $('#results').empty();
-  for user in users
+  for user in users then do (user) ->
     $("#results").append """
       <tr>
         <td>#{user.name}</td>

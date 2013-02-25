@@ -3,6 +3,8 @@ routes = require('./routes')
 http = require('http')
 path = require('path')
 calculations = require('./calculations')
+assets = require('connect-assets')
+compiler = require('./iced-compiler')
 
 app = express()
 
@@ -12,7 +14,12 @@ app.configure = ->
   app.set('port', port)
   app.set('views', __dirname + '/views')
   app.set('view engine', 'jade')
-  app.use require('connect-assets')()
+  # app.use assets()
+  app.use assets(
+    src: "#{__dirname}/assets",
+    jsCompilers:
+      coffee: compiler
+  )
   app.use(express.favicon())
   app.use(express.logger('dev'))
   app.use(express.bodyParser())
