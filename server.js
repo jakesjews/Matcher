@@ -5,4 +5,4 @@ var coffee = require('iced-coffee-script');
 var app = require('./app.coffee');
 
 // Start the server
-app.application.listen(process.env.port || 3000);
+app.application.listen(process.env.PORT || 3000);
