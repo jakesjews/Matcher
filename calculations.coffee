@@ -1,4 +1,4 @@
-_ = require('underscore')
+_ = require('lodash')
 
 exports.filterResults = (users, uid, callback) ->
   await getSelf(users, uid, defer(err, me))
