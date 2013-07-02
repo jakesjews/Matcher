@@ -6,12 +6,12 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "3.2.2",
-    "jade": "0.30.x",
-    "iced-coffee-script": "1.6.2b",
-    "connect-assets": "2.4.2",
-    "lodash": "1.2.1",
-    "stylus": "0.32.1"
+    "express": "3.3.1",
+    "jade": "0.32.0",
+    "iced-coffee-script": "1.6.3-b",
+    "connect-assets": "2.4.3",
+    "lodash": "1.3.1",
+    "stylus": "0.33.1"
   },
   "engines": {
     "node": "0.10.x",
