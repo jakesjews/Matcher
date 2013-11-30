@@ -53,7 +53,7 @@ $ =>
 
 getSex = () ->
   selected = $("#gender .active")
-  selected.html().toLowerCase()
+  selected.text().toLowerCase()
 
 getQuery = () -> """
         SELECT uid, name, last_name, mutual_friend_count, interests,

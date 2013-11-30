@@ -3,9 +3,9 @@ html(lang='en')
     head
         title= title
         meta(http-equiv="Content-Type", content="text/html; charset=UTF-8")
-        link(rel='stylesheet', href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css')
+        link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css')
         != css('style')
-        script(type='text/javascript')
+        script(type='text/javascript').
           var _gaq = _gaq || [];
           _gaq.push(['_setAccount', 'UA-34481156-1']);
           _gaq.push(['_trackPageview']);
@@ -17,11 +17,11 @@ html(lang='en')
           })();
     body
         div#fb-root
-        div.container-fluid
-            div.row.hero-unit
+        div.container
+            div.row.jumbotron
                 block content
         != js('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
         != js('sorttable')
         != js('knockout')
         != js('matcher')
-        != js('//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js')
+        != js('//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js')

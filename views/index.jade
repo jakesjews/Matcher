@@ -6,11 +6,17 @@ block content
   div.padded
     div.fb-login-button(data-show-faces="true", scope="friends_relationships, friends_birthday, user_interests, friends_interests") Login with Facebook
 
-    div#gender.btn-group(data-toggle="buttons-radio")
-      button.btn.active Female
-      button.btn Male
+    div#gender.btn-group(data-toggle="buttons")
+      label.btn.btn-default.active
+        input(type="radio", name="gender")
+        | Female
+      label.btn.btn-default
+        input(type="radio", name="gender")
+        | Male
 
-    button.btn.primary#btnSearch() Search
+    br
+
+    button.btn.btn-default.primary#btnSearch() Search
 
     table.table.table-striped.table-bordered.sortable()
       thead
