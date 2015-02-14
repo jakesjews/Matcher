@@ -55,7 +55,7 @@ calculateInterests = (user, selfInterests, autocb) ->
 
 # Add 20% if the user is single
 calculateRelationship = (user, autocb) ->
-  status = user.relationship_status.toLowerCase()
+  status = user.relationship_status?.toLowerCase()
   relationships = ['married', 'engaged', 'in a relationship']
   inRelationship = _.include(relationships, status)
 

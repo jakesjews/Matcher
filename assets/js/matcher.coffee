@@ -1,8 +1,8 @@
-# appId = "310030915760398"
-# server = "//localhost:3000"
+appId = "310030915760398"
+server = "//localhost:3000"
 
-appId = "188082917990051"
-server = "//facebookmatcher.herokuapp.com"
+#appId = "188082917990051"
+#server = "//facebookmatcher.herokuapp.com"
 
 # Load the SDK Asynchronously
 ((d) ->
@@ -35,27 +35,27 @@ window.fbAsyncInit = ->
     await queryFacebook defer()
 
 User = (user) ->
-  this.name = user.name
-  this.percent = user.percent.toFixed(2)
-  this.relationship_status = if user.name == 'null' then 'N/A' else user.relationship_status
-  this.profile_url = user.profile_url
-  this.pic = user.pic
+  @name = user.name
+  @percent = user.percent.toFixed(2)
+  @relationship_status = if user.name == 'null' then 'N/A' else user.relationship_status
+  @profile_url = user.profile_url
+  @pic = user.pic
 
 viewModel =
   gender: ko.observable('male')
   users: ko.observableArray()
 
-$ =>
+$ ->
   ko.applyBindings(viewModel)
   $("#btnSearch").click ->
     await queryFacebook defer()
   $('.nav-tabs').button()
 
-getSex = () ->
+getSex = ->
   selected = $("#gender .active")
   selected.text().toLowerCase()
 
-getQuery = () -> """
+getQuery = -> """
         SELECT uid, name, last_name, mutual_friend_count, interests,
           relationship_status, profile_url, pic, birthday_date FROM user
         WHERE
@@ -74,7 +74,14 @@ queryFacebook = (callback) ->
   if window.token && window.uid
     uri = encodeURI("https://graph.facebook.com/fql?q=#{getQuery()}&access_token=#{window.token}")
     await $.getJSON uri, defer(results)
-    await $.post "#{server}/user/#{window.uid}", results, defer(results)
+    await $.ajax
+      type: "POST"
+      url: "#{server}/user/#{window.uid}"
+      data: JSON.stringify(results)
+      success: defer(results)
+      contentType: 'application/json'
+      dataType: 'json'
+
     fillTable(results, callback)
 
 fillTable = (users, autocb) ->

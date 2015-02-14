@@ -1,5 +1,5 @@
 // Include the CoffeeScript interpreter so that .coffee files will work
-var coffee = require('iced-coffee-script');
+var coffee = require('iced-coffee-script/register');
 
 // Include our application file
 var app = require('./app.coffee');
